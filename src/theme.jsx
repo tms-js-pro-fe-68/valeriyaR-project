@@ -8,6 +8,10 @@ export default createTheme({
         },
         secondary: {
             main: 'rgba(60, 72, 82, 1)',
+            light: 'rgba(142, 141, 141, 1)',
         },
     },
+    typography: {
+        fontFamily: "'Nuosu SIL', serif"
+    }
 })
