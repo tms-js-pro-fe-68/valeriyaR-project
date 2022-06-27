@@ -1,6 +1,7 @@
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import DeleteDialog from "../../components/DeleteDialog";
+import { useHomePageContext } from "./HomePageContext";
 import JobElementEdit from "./JobElementEdit";
 
 export default function JobElement({
@@ -8,11 +9,11 @@ export default function JobElement({
   title,
   description,
   price,
-  onChange,
   customFields,
 }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const openEdit = () => setIsEditOpen(true);
+  const { getJobs } = useHomePageContext()
 
   const clickToDelete = async () => {
     await fetch(`https://tms-js-pro-back-end.herokuapp.com/api/jobs/${id}`, {
@@ -23,7 +24,7 @@ export default function JobElement({
         Authorization: `Token ${sessionStorage.token}`,
       },
     });
-    onChange();
+    getJobs();
   };
 
   const [isDeleteConfirmDialogOpen, setIsDeleteConfirmDialogOpen] =
@@ -81,7 +82,6 @@ export default function JobElement({
         id={id}
         open={isEditOpen}
         onClose={() => setIsEditOpen(false)}
-        onAfterSubmit={onChange}
       />
       <DeleteDialog
         title="Желаете удалить?"
