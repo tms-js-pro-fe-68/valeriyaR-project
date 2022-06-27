@@ -10,13 +10,11 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useHomePageContext } from "./HomePageContext";
 
-export default function JobElementEdit({
-  id,
-  onClose,
-  onAfterSubmit,
-  ...otherProps
-}) {
+export default function JobElementEdit({ id, onClose, ...otherProps }) {
+  const { getJobs } = useHomePageContext();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -36,7 +34,7 @@ export default function JobElementEdit({
         setTitle(data.title);
         setDescription(data.description);
         setPrice(data.price);
-        setExperience(data.customFields.experience); 
+        setExperience(data.customFields.experience);
       });
   };
 
@@ -50,16 +48,21 @@ export default function JobElementEdit({
     await fetch(
       `https://tms-js-pro-back-end.herokuapp.com/api/jobs${idOrNot}`,
       {
-        method: id ? "PUT" : "POST", 
+        method: id ? "PUT" : "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: `Token ${sessionStorage.token}`,
         },
-        body: JSON.stringify({ title, description, price, customFields: {experience} }),
+        body: JSON.stringify({
+          title,
+          description,
+          price,
+          customFields: { experience },
+        }),
       }
     );
-    onAfterSubmit();
+    getJobs();
     onClose();
   };
 
@@ -72,7 +75,7 @@ export default function JobElementEdit({
           ? "Желаете внести изменение?"
           : "Желаете добавить работу? Тогда заполните форму ниже!"}
       </DialogTitle>
-      <DialogContent sx={{display: 'flex', flexDirection: 'column'}}>
+      <DialogContent sx={{ display: "flex", flexDirection: "column" }}>
         <DialogContentText
           sx={{
             fontSize: "15px",
@@ -102,10 +105,7 @@ export default function JobElementEdit({
         >
           Заработная плата:
         </DialogContentText>
-        <TextField
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
+        <TextField value={price} onChange={(e) => setPrice(e.target.value)} />
         <DialogContentText
           sx={{
             fontSize: "15px",
@@ -119,7 +119,7 @@ export default function JobElementEdit({
           onChange={(e) => setExperience(e.target.value)}
         />
       </DialogContent>
-      <DialogActions sx={{m: '30px auto'}}>
+      <DialogActions sx={{ m: "30px auto" }}>
         <Button onClick={onClose}>ОТМЕНИТЬ</Button>
         <Button onClick={editOrAddJob} autoFocus variant="contained">
           {id ? "Изменить" : "Добавить"}

@@ -3,8 +3,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import LogoFragment from "../../components/LogoFragment";
 import AddNewJob from "./AddNewJob";
+import { useHomePageContext } from "./HomePageContext";
 
-export default function HomeAppBar({ onAfterSubmit }) {
+export default function HomeAppBar() {
+  const { setValue } = useHomePageContext()
   const navigate = useNavigate();
   const clickLogOut = () => {
     sessionStorage.token = "";
@@ -33,6 +35,7 @@ export default function HomeAppBar({ onAfterSubmit }) {
             size="small"
             color="primary"
             id="search"
+            onChange={(e) => setValue(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -42,7 +45,7 @@ export default function HomeAppBar({ onAfterSubmit }) {
             }}
             variant="outlined"
           />
-          <AddNewJob onAfterSubmit={onAfterSubmit}/>
+          <AddNewJob/>
           <Button type="button" variant="outlined" onClick={clickLogOut}>
             ВЫЙТИ
           </Button>

@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
+import FormikTextField from "../../components/FormikTextField";
 import LogoFragment from "../../components/LogoFragment";
 import Page from "../../components/Page";
 
@@ -73,33 +74,19 @@ export default function LoginPage() {
             src="./pictures/owlLoginPage.png"
             color="secondary.main"
           />
-          <TextField
+          <FormikTextField
             label="Логин"
-            id="email"
             name="email"
             type="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            formik={formik}
             value={formik.values.email}
-            error={
-              formik.touched.email &&
-              !!formik.errors.email &&
-              formik.errors.email
-            }
           />
-          <TextField
+          <FormikTextField
             label="Пароль"
-            id="password"
             name="password"
             type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             value={formik.values.password}
-            error={
-              formik.touched.password &&
-              !!formik.errors.password &&
-              formik.errors.password
-            }
+            formik={formik}
           />
           <Button
             variant="contained"

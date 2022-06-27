@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import JobElementEdit from "./JobElementEdit";
 
-export default function AddNewJob({ onAfterSubmit }) {
+export default function AddNewJob() {
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
   return (
@@ -14,7 +14,6 @@ export default function AddNewJob({ onAfterSubmit }) {
       <JobElementEdit
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        onAfterSubmit={onAfterSubmit}
       />
     </>
   );

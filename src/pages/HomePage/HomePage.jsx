@@ -1,11 +1,19 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect, useState } from "react";
-import Page from "../../components/Page";
 import HomeAppBar from "./HomeAppBar";
-import JobElement from "./JobElement";
+import HomePageContextProvider from "./HomePageContext";
+import JobList from "./JobList";
 
 export default function HomePage() {
   const [jobs, setJobs] = useState([]);
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageNum, setPageNum] = useState(0);
+
+  const filteredJobs = jobs.filter((job) => {
+    return job.title.toLowerCase().includes(value.toLowerCase());
+  });
 
   const getJobs = async () => {
     await fetch("https://tms-js-pro-back-end.herokuapp.com/api/jobs", {
@@ -23,20 +31,28 @@ export default function HomePage() {
         return response.json();
       })
       .then((data) => setJobs(data))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getJobs();
   }, []);
 
   return (
-    <>
-      <HomeAppBar onAfterSubmit={getJobs}/>
-      <Page>
-        {jobs?.map((job) => (
-          <JobElement key={job.id} {...job} onChange={getJobs} />
-        ))}
-      </Page>
-    </>
+    <HomePageContextProvider
+      context={{
+        value,
+        setValue,
+        getJobs,
+        isLoading,
+        filteredJobs,
+        pageNum,
+        setPageNum,
+      }}
+    >
+      <HomeAppBar />
+      <JobList />
+    </HomePageContextProvider>
   );
 }
