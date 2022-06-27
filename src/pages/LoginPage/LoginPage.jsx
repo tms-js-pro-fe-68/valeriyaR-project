@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Button, Paper, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
+import FormikTextField from "../../components/FormikTextField";
 import LogoFragment from "../../components/LogoFragment";
 import Page from "../../components/Page";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const handleSubmit = async (values, { setSubmitting }) => {
     const { email, password } = values;
 
@@ -20,10 +23,13 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       }
     );
-
     const data = await response.json();
-    sessionStorage.token = data.token;
-    sessionStorage.email = data.email;
+
+    if (data.token && data.email) {
+      sessionStorage.token = data.token;
+      sessionStorage.email = data.email;
+      navigate("/homePage", { replace: true });
+    }
 
     setSubmitting(false);
   };
@@ -43,12 +49,13 @@ export default function LoginPage() {
 
   return (
     <Page bgcolor="secondary.main">
-      <Paper
+      <Box
         sx={{
           background: "rgba(255, 255, 255, 1)",
           width: "400px",
           height: "450px",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           margin: "auto",
@@ -64,36 +71,22 @@ export default function LoginPage() {
           onSubmit={formik.handleSubmit}
         >
           <LogoFragment
-            src="src\pictures\owlLoginPage.png"
+            src="./pictures/owlLoginPage.png"
             color="secondary.main"
           />
-          <TextField
+          <FormikTextField
             label="Логин"
-            id="email"
             name="email"
             type="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            formik={formik}
             value={formik.values.email}
-            error={
-              formik.touched.email &&
-              !!formik.errors.email &&
-              formik.errors.email
-            }
           />
-          <TextField
+          <FormikTextField
             label="Пароль"
-            id="password"
             name="password"
             type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             value={formik.values.password}
-            error={
-              formik.touched.password &&
-              !!formik.errors.password &&
-              formik.errors.password
-            }
+            formik={formik}
           />
           <Button
             variant="contained"
@@ -103,7 +96,7 @@ export default function LoginPage() {
             ВОЙТИ
           </Button>
         </form>
-      </Paper>
+      </Box>
     </Page>
   );
 }
