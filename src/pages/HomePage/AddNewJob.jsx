@@ -11,10 +11,7 @@ export default function AddNewJob() {
         РАЗМЕСТИТЬ ЗАКАЗ
       </Button>
 
-      <JobElementEdit
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
+      <JobElementEdit open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }

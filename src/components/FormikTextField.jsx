@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material'
+import { TextField } from "@mui/material";
 
 export default function FormikTextField({ name, formik, ...otherProps }) {
   return (
@@ -15,5 +15,5 @@ export default function FormikTextField({ name, formik, ...otherProps }) {
       }
       {...otherProps}
     />
-  )
+  );
 }

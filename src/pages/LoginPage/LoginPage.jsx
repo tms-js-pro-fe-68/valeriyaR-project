@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import FormikTextField from "../../components/FormikTextField";
 import LogoFragment from "../../components/LogoFragment";
-import Page from "../../components/Page";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -48,7 +47,10 @@ export default function LoginPage() {
   });
 
   return (
-    <Page bgcolor="secondary.main">
+    <Box
+      bgcolor="secondary.main"
+      sx={{ height: "100vh", display: "flex", alignContent: "center" }}
+    >
       <Box
         sx={{
           background: "rgba(255, 255, 255, 1)",
@@ -97,6 +99,6 @@ export default function LoginPage() {
           </Button>
         </form>
       </Box>
-    </Page>
+    </Box>
   );
 }

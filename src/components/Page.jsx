@@ -8,7 +8,7 @@ export default function Page({ sx, bgcolor, ...otherProps }) {
   const navigateToLoginPage = () => {
     navigate("/loginPage", { replace: "true" });
   };
-  
+
   useEffect(() => {
     if (!sessionStorage.token) {
       navigateToLoginPage();

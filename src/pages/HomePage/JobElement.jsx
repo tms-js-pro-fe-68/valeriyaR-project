@@ -13,7 +13,7 @@ export default function JobElement({
 }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const openEdit = () => setIsEditOpen(true);
-  const { getJobs } = useHomePageContext()
+  const { getJobs } = useHomePageContext();
 
   const clickToDelete = async () => {
     await fetch(`https://tms-js-pro-back-end.herokuapp.com/api/jobs/${id}`, {
@@ -28,7 +28,7 @@ export default function JobElement({
   };
 
   const [isDeleteConfirmDialogOpen, setIsDeleteConfirmDialogOpen] =
-    useState(false); 
+    useState(false);
   const DeleteConfirmOpen = () => setIsDeleteConfirmDialogOpen(true);
   const DeleteConfirmClose = () => setIsDeleteConfirmDialogOpen(false);
 
