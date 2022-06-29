@@ -6,7 +6,7 @@ import AddNewJob from "./AddNewJob";
 import { useHomePageContext } from "./HomePageContext";
 
 export default function HomeAppBar() {
-  const { setValue } = useHomePageContext()
+  const { setValue } = useHomePageContext();
   const navigate = useNavigate();
   const clickLogOut = () => {
     sessionStorage.token = "";
@@ -45,7 +45,7 @@ export default function HomeAppBar() {
             }}
             variant="outlined"
           />
-          <AddNewJob/>
+          <AddNewJob />
           <Button type="button" variant="outlined" onClick={clickLogOut}>
             ВЫЙТИ
           </Button>

@@ -8,32 +8,32 @@ export default function MainPage() {
     navigate("/loginPage", { replace: true });
   };
   return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          width: 1000,
-          m: "100px auto",
-        }}
-      >
-        <Stack>
-          <Typography variant="h2" mr={3} color="secondary.main">
-            Купи работу!
-            <Typography variant="h4" color="secondary.light">
-              экономим твои деньги и время
-            </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        width: 1000,
+        m: "100px auto",
+      }}
+    >
+      <Stack>
+        <Typography variant="h2" mr={3} color="secondary.main">
+          Купи работу!
+          <Typography variant="h4" color="secondary.light">
+            экономим твои деньги и время
           </Typography>
-          <Button
-            sx={{ width: "100px", mt: 2 }}
-            type="button"
-            variant="contained"
-            onClick={clickToSignIn}
-          >
-            ВОЙТИ
-          </Button>
-        </Stack>
-        <Images />
-      </Box>
+        </Typography>
+        <Button
+          sx={{ width: "100px", mt: 2 }}
+          type="button"
+          variant="contained"
+          onClick={clickToSignIn}
+        >
+          ВОЙТИ
+        </Button>
+      </Stack>
+      <Images />
+    </Box>
   );
 }
