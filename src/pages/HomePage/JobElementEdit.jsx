@@ -43,6 +43,13 @@ export default function JobElementEdit({ id, onClose, ...otherProps }) {
     loadJob();
   }, []);
 
+  const handleFormReset = () => {
+    setTitle('');
+    setDescription('');
+    setPrice('');
+    setExperience('');
+  };
+
   const editOrAddJob = async () => {
     const idOrNot = id ? `/${id}` : "";
     await fetch(
@@ -64,6 +71,7 @@ export default function JobElementEdit({ id, onClose, ...otherProps }) {
     );
     getJobs();
     onClose();
+    handleFormReset();
   };
 
   return (
